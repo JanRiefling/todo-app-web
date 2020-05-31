@@ -26,4 +26,9 @@ public class TodoService {
     public void addTask(Task task){
         todoDB.addTask(task);
     }
+
+
+    public Task addDescription(String description) {
+        return todoDB.createNewTaskWithDescription(description);
+    }
 }

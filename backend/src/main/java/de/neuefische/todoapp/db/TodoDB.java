@@ -34,4 +34,12 @@ public class TodoDB {
     public void addTask(Task task){
         tasks.add(task);
     }
+
+    public Task createNewTaskWithDescription(String description){
+        int id = 1;
+        id++;
+        String newId = "A" + id;
+        Task newTask = new Task(newId, description, Status.OPEN);
+        return newTask;
+    }
 }

@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
@@ -45,5 +47,19 @@ class TodoControllerTest {
         //THEN
         assertEquals(HttpStatus.OK, statusCode);
         assertEquals(1, tasks.length);
+    }
+
+    @Test
+    public void addTaskByDescriptionShouldBeTrue(){
+        //GIVEN
+
+        HttpEntity<Task> requestEntity = new HttpEntity<>(todoDB.createNewTaskWithDescription("Drink Water"));
+        //WHEN
+        ResponseEntity<Task> putResponse = restTemplate.exchange("http://localhost:" + port + "/api/todo", HttpMethod.PUT, requestEntity, Task.class);
+        //String description = task.getDescription();
+        //THEN
+        assertEquals(HttpStatus.OK, putResponse.getStatusCode());
+        assertEquals(new Task("A2", "Drink Water", Status.OPEN), putResponse.getBody());
+        // Wat? assertTrue(todoDB.getTasks().contains(new Task("A2", "Drink Water", Status.OPEN)));
     }
 }

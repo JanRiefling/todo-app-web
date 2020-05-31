@@ -1,13 +1,11 @@
 package de.neuefische.todoapp.controller;
 
+import de.neuefische.todoapp.model.AddTodoData;
 import de.neuefische.todoapp.model.Status;
 import de.neuefische.todoapp.model.Task;
 import de.neuefische.todoapp.service.TodoService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,5 +26,9 @@ public class TodoController {
         return todoService.getTasks();
     }
 
+    @PutMapping("todo")
+    public Task addTodoItem(@RequestBody AddTodoData descriptionObject){
+        return todoService.addDescription(descriptionObject.getDescription());
+    }
 
 }

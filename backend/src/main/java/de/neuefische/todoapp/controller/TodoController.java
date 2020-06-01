@@ -42,4 +42,9 @@ public class TodoController {
         return todoService.deleteTask(id.getId());
     }
 
+    @PutMapping("todo/{id}/status")
+    public Task updateTask(@PathVariable String id){
+        return todoService.updateStatus(id);
+    }
+
 }

@@ -12,6 +12,7 @@ import java.util.List;
 @Service
 public class TodoService {
 
+
     private TodoDB todoDB;
 
     @Autowired
@@ -30,5 +31,9 @@ public class TodoService {
 
     public Task addDescription(String description) {
         return todoDB.createNewTaskWithDescription(description);
+    }
+
+    public Task deleteTask(String id){
+       return todoDB.deleteTask(id);
     }
 }

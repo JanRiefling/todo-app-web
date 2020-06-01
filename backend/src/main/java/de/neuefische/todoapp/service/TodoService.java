@@ -36,4 +36,8 @@ public class TodoService {
     public Task deleteTask(String id){
        return todoDB.deleteTask(id);
     }
+
+    public Task updateStatus(String id) {
+        return todoDB.updateStatus(id);
+    }
 }

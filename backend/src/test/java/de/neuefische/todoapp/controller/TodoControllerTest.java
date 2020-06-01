@@ -9,10 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -81,5 +79,34 @@ class TodoControllerTest {
         assertEquals(HttpStatus.OK,responseEntity.getStatusCode());
         assertEquals(3, tasks.length);
     }
+
+    @Test
+    public void updateTaskShouldReturnStatusOpenIsStatusOpen(){
+        //GIVEN
+        HttpEntity<Task> requestEntity = new HttpEntity<>(todoDB.createNewTaskWithDescription("Brush the bush"));
+        //WHEN
+        ResponseEntity<Task> putResponse = restTemplate.exchange("http://localhost:" + port + "/api/todo", HttpMethod.PUT, requestEntity, Task.class);
+
+        //THEN
+        assertEquals(Status.OPEN, requestEntity.getBody().getStatus());
+
+    }
+
+    /*@Test
+    public void updateTaskShouldReturnStatusCheanged(){
+        //GIVEN
+
+        HttpEntity<Task> requestEntity = new HttpEntity<>(todoDB.updateStatus("134"));
+        //WHEN
+        ResponseEntity<Task> putResponse = restTemplate.exchange("http://localhost:" + port + "/api/todo", HttpMethod.PUT, requestEntity, Task.class);
+       /* Task newTask = requestEntity.getBody();
+        String id = requestEntity.getBody().getId();
+        todoDB.
+        HttpStatus responseStatusException = putResponse.getStatusCode();
+        //THEN
+        assertEquals(HttpStatus.BAD_REQUEST, responseStatusException);
+
+    }*/
+
 
 }

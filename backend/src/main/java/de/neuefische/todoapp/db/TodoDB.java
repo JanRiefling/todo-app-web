@@ -55,4 +55,20 @@ public class TodoDB {
         }
         return null;
     }
+
+    public Task updateStatus(String id) {
+        for (int i = 0; i < tasks.size(); i++) {
+            Task updateTask = tasks.get(i);
+           if(updateTask.getStatus().equals(Status.OPEN)){
+               updateTask.setStatus(Status.IN_PROGRESS);
+               return updateTask;
+           }
+           if(updateTask.getStatus().equals(Status.IN_PROGRESS)){
+               updateTask.setStatus(Status.DONE);
+               return updateTask;
+           }
+        }
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No Task with " + id + " found!");
+    }
+
 }

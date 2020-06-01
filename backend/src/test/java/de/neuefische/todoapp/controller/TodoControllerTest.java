@@ -62,4 +62,24 @@ class TodoControllerTest {
         assertEquals(new Task("A2", "Drink Water", Status.OPEN), putResponse.getBody());
         // Wat? assertTrue(todoDB.getTasks().contains(new Task("A2", "Drink Water", Status.OPEN)));
     }
+
+
+    @Test
+    public void deleteTaskWithPathVariableShouldReturnLength3(){
+        //GIVEN
+        todoDB.addTask(new Task("123", "Google RestTemplate", Status.OPEN));
+        todoDB.addTask(new Task("423", "Drink Water", Status.OPEN));
+        todoDB.addTask(new Task("523", "Google ResponseStatus", Status.IN_PROGRESS));
+        todoDB.addTask(new Task("623", "Google Exception", Status.OPEN));
+        todoDB.deleteTask("623");
+        //WHEN
+        ResponseEntity<Task[]> responseEntity = restTemplate.getForEntity("http://localhost:" + port + "/api/todo", Task[].class);
+        HttpStatus statusCode = responseEntity.getStatusCode();
+        Task[] tasks = responseEntity.getBody();
+
+        //THEN
+        assertEquals(HttpStatus.OK,responseEntity.getStatusCode());
+        assertEquals(3, tasks.length);
+    }
+
 }

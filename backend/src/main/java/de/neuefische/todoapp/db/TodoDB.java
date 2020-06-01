@@ -2,7 +2,9 @@ package de.neuefische.todoapp.db;
 
 import de.neuefische.todoapp.model.Status;
 import de.neuefische.todoapp.model.Task;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Repository;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,5 +43,16 @@ public class TodoDB {
         String newId = "A" + id;
         Task newTask = new Task(newId, description, Status.OPEN);
         return newTask;
+    }
+
+    public Task deleteTask(String id){
+        for (int i = 0; i < tasks.size(); i++) {
+            Task task = tasks.get(i);
+            if (task.getId().equals(id)) {
+                tasks.remove(task);
+                return task;
+            }
+        }
+        return null;
     }
 }

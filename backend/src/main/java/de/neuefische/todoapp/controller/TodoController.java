@@ -1,6 +1,7 @@
 package de.neuefische.todoapp.controller;
 
 import de.neuefische.todoapp.model.AddTodoData;
+import de.neuefische.todoapp.model.IdObject;
 import de.neuefische.todoapp.model.Status;
 import de.neuefische.todoapp.model.Task;
 import de.neuefische.todoapp.service.TodoService;
@@ -29,6 +30,16 @@ public class TodoController {
     @PutMapping("todo")
     public Task addTodoItem(@RequestBody AddTodoData descriptionObject){
         return todoService.addDescription(descriptionObject.getDescription());
+    }
+
+    @GetMapping(value = "todo/{id}")
+    public Task deleteTask(@PathVariable IdObject id){
+        return todoService.deleteTask(id.getId());
+    }
+
+    @DeleteMapping("todo/{id}")
+    public Task deleteTask2(@PathVariable IdObject id){
+        return todoService.deleteTask(id.getId());
     }
 
 }

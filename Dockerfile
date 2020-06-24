@@ -4,6 +4,6 @@ ENV ENVIRONMENT=prod
 
 MAINTAINER Name <email@mail.de>
 
-ADD project-planning/target/app.jar app.jar
+ADD project-planning/target/project-planning.jar.jar app.jar
 
 CMD [ "sh", "-c", "java -Dserver.port=$PORT -jar /app.jar" ]

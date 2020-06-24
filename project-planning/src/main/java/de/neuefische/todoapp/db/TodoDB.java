@@ -39,7 +39,6 @@ public class TodoDB {
 
     public Task createNewTaskWithDescription(String description){
         int id = 1;
-        id++;
         String newId = "A" + id;
         Task newTask = new Task(newId, description, Status.OPEN);
         return newTask;
@@ -59,14 +58,16 @@ public class TodoDB {
     public Task updateStatus(String id) {
         for (int i = 0; i < tasks.size(); i++) {
             Task updateTask = tasks.get(i);
-           if(updateTask.getStatus().equals(Status.OPEN)){
-               updateTask.setStatus(Status.IN_PROGRESS);
-               return updateTask;
-           }
-           if(updateTask.getStatus().equals(Status.IN_PROGRESS)){
-               updateTask.setStatus(Status.DONE);
-               return updateTask;
-           }
+            if(updateTask.getId().equals(id)) {
+                if (updateTask.getStatus().equals(Status.OPEN)) {
+                    updateTask.setStatus(Status.IN_PROGRESS);
+                    return updateTask;
+                }
+                if (updateTask.getStatus().equals(Status.IN_PROGRESS)) {
+                    updateTask.setStatus(Status.DONE);
+                    return updateTask;
+                }
+            }
         }
         throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "No Task with " + id + " found!");
     }

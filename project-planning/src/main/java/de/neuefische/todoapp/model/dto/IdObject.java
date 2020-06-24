@@ -1,4 +1,4 @@
-package de.neuefische.todoapp.model;
+package de.neuefische.todoapp.model.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
